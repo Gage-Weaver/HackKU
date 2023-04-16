@@ -10,13 +10,6 @@ handvalue = 0
 stillplaying = True
 userelement = ['']
 userchoice = ['']
-'''Integrate this into GUI (DONE)
-print("This is elemental blackjack here is a rundown of the elements: ")
-print("Team Fire allows you to take away 3 from the opponents final score")
-print("Team Ice allows you to add 3 to your score if you are below 19")
-userelement = input("Would you like to be Fire or Ice?: ")
-userelement.lower()
-'''
 class card:
     def __init__(self, denom):
         if denom in numbercardlist:
