@@ -9,7 +9,6 @@ deck = [2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,9,9,9,9,10,10,10
 handvalue = 0
 stillplaying = True
 userelement = ['']
-userbank = [0]
 userchoice = ['']
 '''Integrate this into GUI (DONE)
 print("This is elemental blackjack here is a rundown of the elements: ")
@@ -40,6 +39,9 @@ class gui:
         label2 = tk.Label(self.root, text="Choose a team, and starting value below, team Fire allows you to take score from the dealer and team Ice allows you to add score to your own hand, each bet will be 100 Credits", font=('Arial', 17))
         label2.pack(padx=20, pady=20)
         label2['bg'] = 'green'
+        label1 = tk.Label(self.root, text="Standard Black Jack rules, dealer hits 16 and below", font=('Arial', 25))
+        label1.pack(padx=20, pady=20)
+        label1['bg'] = 'green'
         ###Frame Column Config
         frame.columnconfigure(0, weight=1)
         frame.columnconfigure(1, weight=1)
@@ -67,32 +69,10 @@ class gui:
             buttonice.destroy()
             buttonnone.destroy()
             return userelement
-        def click100():
-            print("You chose Starting Value 100")
-            userbank[0] = 100
-            button100.destroy()
-            button500.destroy()
-            button1000.destroy()
-            return userbank
-        def click500():
-            print("You chose Starting Value 500")
-            userbank[0] = 500
-            button100.destroy()
-            button500.destroy()
-            button1000.destroy()
-            return userbank
-        def click1000():
-            print("You chose Starting Value 1000")
-            userbank[0] = 1000
-            button100.destroy()
-            button500.destroy()
-            button1000.destroy()
-            return userbank
-        
         def startgame():
             stillplaying = True
             buttonstart.destroy()
-            while stillplaying == True and userbank[0] > 0:
+            while stillplaying == True:
                 dealerhand = []
                 dealerhand.append(random.choices(deck, k=2))
                 dealerhandvalue = 0
@@ -184,14 +164,12 @@ class gui:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer Had", dealerhandvalue, "You Win"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] += 100
                                     messagebox.showinfo("Message", "You Win")
                                     stillplaying = False
                                 elif dealerhandvalue > handvalue:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "You Lose"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] -= 100
                                     messagebox.showinfo("Message", "Dealer Wins")
                                     stillplaying = False
                                 else:
@@ -218,14 +196,12 @@ class gui:
                                         label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "You Win"), font=('Arial', 18))
                                         label['bg'] = 'green'
                                         label.pack()
-                                        userbank[0] += 100
                                         messagebox.showinfo("Message", "You Win")
                                         stillplaying = False
                                     elif dealerhandvalue > handvalue:
                                         label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "You Lose"), font=('Arial', 18))
                                         label['bg'] = 'green'
                                         label.pack()
-                                        userbank[0] -= 100
                                         messagebox.showinfo("Message", "Dealer Wins")
                                         stillplaying = False
                                     else:
@@ -290,14 +266,12 @@ class gui:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "Dealer Wins"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] -= 100
                                     messagebox.showinfo("Message", "Dealer Wins")
                                     stillplaying = False
                                 elif dealerhandvalue < handvalue:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "You Win"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] += 100
                                     messagebox.showinfo("Message", "You Win")
                                     stillplaying = False
                                 else:
@@ -310,7 +284,6 @@ class gui:
                                 label = Label(self.root, text= ("Dealer Busts"), font=('Arial', 18))
                                 label['bg'] = 'green'
                                 label.pack()
-                                userbank[0] += 100
                                 messagebox.showinfo("Message", "Dealer Busts")
                                 stillplaying = False
                             if dealerhandvalue == 21 and userelement[0] == 'fire':
@@ -322,14 +295,12 @@ class gui:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "Dealer Wins"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] -= 100
                                     messagebox.showinfo("Message", "Dealer Wins")
                                     stillplaying = False
                                 elif dealerhandvalue < handvalue:
                                     label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "You Win"), font=('Arial', 18))
                                     label['bg'] = 'green'
                                     label.pack()
-                                    userbank[0] += 100
                                     messagebox.showinfo("Message", "You Win!")
                                     stillplaying = False
                                 else:
@@ -342,30 +313,16 @@ class gui:
                                 label = Label(self.root, text= ("You had", handvalue, "Dealer had", dealerhandvalue, "Dealer Wins"), font=('Arial', 18))
                                 label['bg'] = 'green'
                                 label.pack()
-                                userbank[0] -= 100
                                 messagebox.showinfo("Message", "Dealer Wins")
                                 stillplaying = False
                 for widgets in self.root.winfo_children():
                     widgets.destroy()
                 playagainpopup = messagebox.askyesno('Would you like to Play again?')
-                if playagainpopup == True and userbank[0] >0:
+                if playagainpopup == True:
                     startgame()
-                if playagainpopup == True and userbank[0] <0:
-                    messagebox.showinfo('No Money')
-                    messagebox.showinfo('Exit Program')
-                    stillplaying = False
                 else:
                     stillplaying = False
         ##### BUTTONS
-        button100 = tk.Button(frame, text='100', font=('arial', 16), command=click100)
-        button100.grid(row=2, column=0, sticky='we')
-        button100['bg'] = 'grey'
-        button500 = tk.Button(frame, text='500', font=('arial', 16), command=click500)
-        button500.grid(row=2, column=1, sticky='we')
-        button500['bg'] = 'grey'
-        button1000 = tk.Button(frame, text='1000', font=('arial', 16), command=click1000)
-        button1000.grid(row=2, column=2, sticky='we')
-        button1000['bg'] = 'grey'
         buttonfire = tk.Button(frame, text='Fire', font=('arial', 16), command=fireclick)
         buttonfire.grid(row=0, column=0, sticky='we')
         buttonfire['bg'] = 'red'
