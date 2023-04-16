@@ -29,7 +29,7 @@ class gui:
         label1 = tk.Label(self.root, text="Hello, This is Elemental Blackjack, the age old game of Blackjack with a Twist", font=('Arial', 25))
         label1.pack(padx=20, pady=20)
         label1['bg'] = 'green'
-        label2 = tk.Label(self.root, text="Choose a team, and starting value below, team Fire allows you to take score from the dealer and team Ice allows you to add score to your own hand, each bet will be 100 Credits", font=('Arial', 17))
+        label2 = tk.Label(self.root, text="Choose a team, and starting value below, team Fire allows you to take score from the dealer and team Ice allows you to add score to your own hand", font=('Arial', 13))
         label2.pack(padx=20, pady=20)
         label2['bg'] = 'green'
         label1 = tk.Label(self.root, text="Standard Black Jack rules, dealer hits 16 and below", font=('Arial', 25))
